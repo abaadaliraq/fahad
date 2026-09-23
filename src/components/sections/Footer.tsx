@@ -92,6 +92,17 @@ export function Footer() {
 
         <div className="footer__bottom">
           <span>{content.copyright}</span>
+          <a className="footer__credit" href="https://www.abaad-aliraq.com/" target="_blank" rel="noopener noreferrer">
+            <Image
+              className="footer__credit-logo"
+              src="/images/abaadlogo.png"
+              alt=""
+              width={26}
+              height={26}
+              aria-hidden="true"
+            />
+            <span>Developed by Abaad Al-Iraq</span>
+          </a>
           <span>{content.location}</span>
         </div>
 
@@ -100,3 +111,4 @@ export function Footer() {
     </footer>
   );
 }
+

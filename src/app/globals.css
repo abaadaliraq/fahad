@@ -437,11 +437,11 @@ button {
   left: 5%;
   z-index: -3;
   width: min(41vw, 650px);
-  background-image: url("/images/fahad-hero.jpg");
-  background-position: center 28%;
+  background-image: url("/images/fahadhero.jpg");
+  background-position: center center;
   background-size: cover;
-  opacity: 0.36;
-  filter: grayscale(0.82) saturate(0.28) contrast(0.92);
+  opacity: 0.48;
+  filter: none;
   mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.88) 22%, rgb(0 0 0 / 0.8) 68%, transparent 100%);
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.88) 22%, rgb(0 0 0 / 0.8) 68%, transparent 100%);
   animation: heroImageIn 900ms 120ms ease-out both;
@@ -660,7 +660,7 @@ button {
   }
 
   to {
-    opacity: 0.36;
+    opacity: 0.48;
     transform: translateY(0) scale(1);
   }
 }
@@ -840,14 +840,16 @@ button {
   }
 
   .hero__portrait {
-    top: 16%;
-    bottom: 10%;
-    left: -58%;
-    width: 106%;
-    opacity: 0.28;
-    background-position: center 18%;
-    mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.82) 22%, rgb(0 0 0 / 0.66) 66%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.82) 22%, rgb(0 0 0 / 0.66) 66%, transparent 100%);
+    top: 14%;
+    right: 0;
+    bottom: 8%;
+    left: 0;
+    width: 100%;
+    opacity: 0.42;
+    background-position: center center;
+    background-size: cover;
+    mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.76) 18%, rgb(0 0 0 / 0.68) 58%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.76) 18%, rgb(0 0 0 / 0.68) 58%, transparent 100%);
   }
 
   .hero__overlay {
@@ -2504,6 +2506,41 @@ button {
   font-weight: 500;
   line-height: 1.5;
 }
+.footer__credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgb(241 239 231 / 0.42);
+  direction: ltr;
+  font-family: var(--font-english);
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 1;
+  transition:
+    color 250ms ease,
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+
+.footer__credit-logo {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  opacity: 0.55;
+  transition: opacity 250ms ease;
+}
+
+.footer__credit:hover {
+  color: rgb(241 239 231 / 0.9);
+  transform: translateY(-1px);
+}
+
+.footer__credit:hover .footer__credit-logo {
+  opacity: 1;
+}
+
 
 .footer__wordmark {
   position: absolute;
@@ -2993,6 +3030,18 @@ button {
     margin-top: 0.75rem;
     font-size: 0.56rem;
   }
+  .footer__credit {
+    gap: 6px;
+    font-size: 0.62rem;
+    white-space: normal;
+  }
+
+  .footer__credit-logo {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+  }
+
 
   .footer__wordmark {
     right: 0.75rem;
@@ -5007,3 +5056,4 @@ button {
     font-size: 0.54rem;
   }
 }
+

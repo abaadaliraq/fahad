@@ -6,7 +6,7 @@ import gsap from "gsap";
 
 const MIN_VISIBLE = 700;
 const MAX_VISIBLE = 1800;
-const HERO_IMAGE = "/images/fahad-hero.jpg";
+const HERO_IMAGE = "/images/fahadhero.jpg";
 
 function loadImage(src: string) {
   return new Promise<void>((resolve) => {
