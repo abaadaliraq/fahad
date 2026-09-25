@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { MouseEvent, useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import { FullscreenToggle } from "@/components/ui/FullscreenToggle";
 import { translations, type Language } from "@/lib/i18n";
@@ -20,12 +21,15 @@ function scrollToSection(id: string, behavior: ScrollBehavior = "smooth") {
   return true;
 }
 
+function normalizeHref(href: string) {
+  return href === "/#home" ? "/" : href;
+}
+
 export function Topbar() {
   const { language, setLanguage, direction } = useLanguage();
   const pathname = usePathname();
-  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeHref, setActiveHref] = useState("#home");
+  const [activeHref, setActiveHref] = useState("/");
   const content = translations[language];
   const isHome = pathname === "/";
 
@@ -36,9 +40,17 @@ export function Topbar() {
 
     const id = window.location.hash.replace("#", "");
     if (id) {
-      window.setTimeout(() => scrollToSection(id, "auto"), 80);
+      window.setTimeout(() => {
+        if (scrollToSection(id, "auto")) {
+          setActiveHref("/#" + id);
+        }
+      }, 80);
+      return;
     }
-  }, [isHome]);
+
+    const timer = window.setTimeout(() => setActiveHref("/"), 0);
+    return () => window.clearTimeout(timer);
+  }, [isHome, pathname]);
 
   useEffect(() => {
     if (!isHome) {
@@ -60,7 +72,7 @@ export function Topbar() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
         if (visible?.target.id) {
-          setActiveHref(`#${visible.target.id}`);
+          setActiveHref(visible.target.id === "home" ? "/" : "/#" + visible.target.id);
         }
       },
       { rootMargin: "-30% 0px -55%", threshold: [0.12, 0.28, 0.45] },
@@ -70,44 +82,44 @@ export function Topbar() {
     return () => observer.disconnect();
   }, [isHome]);
 
-  const getHref = (href: string) => {
-    if (!href.startsWith("#")) {
-      return href;
-    }
-
-    return isHome ? href : `/${href}`;
-  };
-
-  const handleNavClick = (href: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+  const handleHashClick = (href: string) => () => {
     setIsMenuOpen(false);
 
-    if (!href.startsWith("#")) {
+    if (!isHome || !href.startsWith("/#")) {
       return;
     }
 
-    event.preventDefault();
-    const id = href.slice(1);
-
-    if (isHome) {
+    const id = href.slice(2);
+    window.setTimeout(() => {
       if (scrollToSection(id)) {
         setActiveHref(href);
-        window.history.replaceState(null, "", id === "home" ? "/" : href);
       }
-      return;
+    }, 0);
+  };
+
+  const isActive = (href: string) => {
+    const normalized = normalizeHref(href);
+
+    if (normalized === "/ventures") {
+      return pathname.startsWith("/ventures");
     }
 
-    router.push(`/${href}`);
+    if (normalized === "/journey") {
+      return pathname === "/journey";
+    }
+
+    return activeHref === normalized;
   };
 
   return (
     <header className="topbar" dir={direction} data-cursor-theme="dark">
       <div className="topbar__inner">
-        <a
+        <Link
           className="brand"
           data-cursor="logo"
-          href={getHref("#home")}
+          href="/"
           aria-label={content.topbarName}
-          onClick={handleNavClick("#home")}
+          onClick={() => setIsMenuOpen(false)}
         >
           <Image
             className="brand__logo"
@@ -119,19 +131,19 @@ export function Topbar() {
             priority
           />
           <span className="brand__name">{content.topbarName}</span>
-        </a>
+        </Link>
 
         <nav className="topbar__nav" dir={direction} aria-label="Primary navigation">
           {content.nav.map((item) => (
-            <a
+            <Link
               className="topbar__nav-link"
-              data-active={isHome && activeHref === item.href}
-              href={getHref(item.href)}
+              data-active={isActive(item.href)}
+              href={item.href}
               key={item.href}
-              onClick={handleNavClick(item.href)}
+              onClick={handleHashClick(item.href)}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -183,15 +195,15 @@ export function Topbar() {
         aria-label="Mobile navigation"
       >
         {content.nav.map((item) => (
-          <a
+          <Link
             className="topbar__nav-link"
-            data-active={isHome && activeHref === item.href}
-            href={getHref(item.href)}
+            data-active={isActive(item.href)}
+            href={item.href}
             key={item.href}
-            onClick={handleNavClick(item.href)}
+            onClick={handleHashClick(item.href)}
           >
             {item.label}
-          </a>
+          </Link>
         ))}
       </nav>
     </header>

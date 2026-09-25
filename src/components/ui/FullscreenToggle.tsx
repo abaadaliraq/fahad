@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useFullscreen } from "@/components/providers/FullscreenProvider";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import styles from "./FullscreenToggle.module.css";
 
@@ -29,30 +28,7 @@ function FullscreenIcon({ active }: { active: boolean }) {
 
 export function FullscreenToggle() {
   const { language } = useLanguage();
-  const [isSupported, setIsSupported] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  useEffect(() => {
-    const sync = () => {
-      setIsFullscreen(Boolean(document.fullscreenElement));
-      ScrollTrigger.refresh();
-    };
-
-    const timer = window.setTimeout(() => {
-      const supported = typeof document.documentElement.requestFullscreen === "function" && typeof document.exitFullscreen === "function";
-      setIsSupported(supported);
-      if (supported) {
-        sync();
-      }
-    }, 0);
-
-    document.addEventListener("fullscreenchange", sync);
-
-    return () => {
-      window.clearTimeout(timer);
-      document.removeEventListener("fullscreenchange", sync);
-    };
-  }, []);
+  const { isSupported, isFullscreen, toggleFullscreen } = useFullscreen();
 
   if (!isSupported) {
     return null;
@@ -61,15 +37,6 @@ export function FullscreenToggle() {
   const label = language === "ar"
     ? isFullscreen ? "إنهاء ملء الشاشة" : "عرض ملء الشاشة"
     : isFullscreen ? "Exit fullscreen" : "Enter fullscreen";
-
-  const toggleFullscreen = async () => {
-    if (document.fullscreenElement) {
-      await document.exitFullscreen();
-      return;
-    }
-
-    await document.documentElement.requestFullscreen();
-  };
 
   return (
     <button className={styles.toggle} type="button" aria-label={label} onClick={toggleFullscreen}>

@@ -58,12 +58,15 @@ export function Hero() {
         <div className="hero__content">
           <p className="hero__eyebrow">{content.eyebrow}</p>
           <h1 className="hero__headline" data-typing-started={typingStarted}>
-            <TypewriterText
-              lines={headlineLines}
-              lineClassName="hero__headline-line"
-              onComplete={() => setTypingDone(true)}
-              start={typingStarted}
-            />
+            <span className="seo-only">{headlineLines.join(" ")}</span>
+            <span aria-hidden="true">
+              <TypewriterText
+                lines={headlineLines}
+                lineClassName="hero__headline-line"
+                onComplete={() => setTypingDone(true)}
+                start={typingStarted}
+              />
+            </span>
           </h1>
           <p className="hero__supporting" data-visible={typingDone}>{content.supporting}</p>
           <a className="hero__cta" data-magnetic data-visible={typingDone} href="#journey">

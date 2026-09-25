@@ -38,6 +38,7 @@ export function VenturesHero() {
 
   return (
     <section className="ventures-full-hero" id="ventures-hero" dir={direction} data-language={language} data-cursor-theme="dark">
+      <h1 className="seo-only">{language === "ar" ? "الشركات والمشاريع" : "Ventures and Projects"}</h1>
       <p className="ventures-full-hero__label">{page.label}</p>
       <div className="ventures-full-hero__track" aria-hidden="true">
         {panels.map((panel, index) => (
@@ -46,7 +47,7 @@ export function VenturesHero() {
             <div className="ventures-full-hero__shade" />
             <div className="ventures-full-hero__copy">
               <span>{panel.number}</span>
-              <h1>{panel.title}</h1>
+              <h2>{panel.title}</h2>
               <p>{panel.meta}</p>
             </div>
           </article>

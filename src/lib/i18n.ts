@@ -11,12 +11,12 @@ export const translations = {
     ctaArrow: "←",
     menu: "القائمة",
     nav: [
-      { label: "الرئيسية", href: "#home" },
-      { label: "المسيرة", href: "#journey" },
-      { label: "المشاريع", href: "#ventures" },
-      { label: "الرؤية والخبرة", href: "#vision" },
-      { label: "الأدوار الحالية", href: "#current-roles" },
-      { label: "تواصل", href: "#contact" },
+      { label: "الرئيسية", href: "/" },
+      { label: "المسيرة", href: "/journey" },
+      { label: "المشاريع", href: "/ventures" },
+      { label: "الرؤية والخبرة", href: "/#vision" },
+      { label: "الأدوار الحالية", href: "/#current-roles" },
+      { label: "تواصل", href: "/#contact" },
     ],
     journey: {
       label: "المسيرة المهنية",
@@ -84,10 +84,10 @@ export const translations = {
         {
           title: "روابط سريعة",
           links: [
-            { label: "الرئيسية", href: "#home" },
-            { label: "المسيرة", href: "#journey" },
-            { label: "المشاريع", href: "#ventures" },
-            { label: "تواصل", href: "#contact" },
+            { label: "الرئيسية", href: "/" },
+            { label: "المسيرة", href: "/journey" },
+            { label: "المشاريع", href: "/ventures" },
+            { label: "تواصل", href: "/#contact" },
           ],
         },
         {
@@ -95,13 +95,13 @@ export const translations = {
           links: [
             { label: "الشركات والمشاريع", href: "/ventures" },
             { label: "المسيرة المهنية", href: "/journey" },
-            { label: "السياسة", href: "/policy" },
-            { label: "الخصوصية", href: "/privacy" },
+            { label: "شروط الاستخدام", href: "/terms" },
+            { label: "سياسة الخصوصية", href: "/privacy" },
           ],
         },
       ],
       social: [
-        { label: "Instagram", href: "#", icon: "instagram" },
+        { label: "Instagram", href: "https://www.instagram.com/fahad.almodares/", icon: "instagram" },
         { label: "Facebook", href: "#", icon: "facebook" },
         { label: "LinkedIn", href: "#", icon: "linkedin" },
       ],
@@ -118,12 +118,12 @@ export const translations = {
     ctaArrow: "→",
     menu: "Menu",
     nav: [
-      { label: "Home", href: "#home" },
-      { label: "Journey", href: "#journey" },
-      { label: "Ventures", href: "#ventures" },
-      { label: "Vision & Experience", href: "#vision" },
-      { label: "Current Roles", href: "#current-roles" },
-      { label: "Contact", href: "#contact" },
+      { label: "Home", href: "/" },
+      { label: "Journey", href: "/journey" },
+      { label: "Ventures", href: "/ventures" },
+      { label: "Vision & Experience", href: "/#vision" },
+      { label: "Current Roles", href: "/#current-roles" },
+      { label: "Contact", href: "/#contact" },
     ],
     journey: {
       label: "Professional Journey",
@@ -191,10 +191,10 @@ export const translations = {
         {
           title: "Quick Links",
           links: [
-            { label: "Home", href: "#home" },
-            { label: "Journey", href: "#journey" },
-            { label: "Ventures", href: "#ventures" },
-            { label: "Contact", href: "#contact" },
+            { label: "Home", href: "/" },
+            { label: "Journey", href: "/journey" },
+            { label: "Ventures", href: "/ventures" },
+            { label: "Contact", href: "/#contact" },
           ],
         },
         {
@@ -202,13 +202,13 @@ export const translations = {
           links: [
             { label: "Ventures", href: "/ventures" },
             { label: "Journey", href: "/journey" },
-            { label: "Policy", href: "/policy" },
-            { label: "Privacy", href: "/privacy" },
+            { label: "Terms of Use", href: "/terms" },
+            { label: "Privacy Policy", href: "/privacy" },
           ],
         },
       ],
       social: [
-        { label: "Instagram", href: "#", icon: "instagram" },
+        { label: "Instagram", href: "https://www.instagram.com/fahad.almodares/", icon: "instagram" },
         { label: "Facebook", href: "#", icon: "facebook" },
         { label: "LinkedIn", href: "#", icon: "linkedin" },
       ],

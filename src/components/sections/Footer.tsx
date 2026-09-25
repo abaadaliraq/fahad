@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import { translations } from "@/lib/i18n";
 
@@ -32,8 +33,8 @@ function SocialIcon({ icon }: SocialIconProps) {
   );
 }
 
-function footerHref(href: string) {
-  return href.startsWith("#") ? `/${href}` : href;
+function isExternalHref(href: string) {
+  return href.startsWith("http://") || href.startsWith("https://");
 }
 
 export function Footer() {
@@ -44,7 +45,7 @@ export function Footer() {
     <footer className="footer" dir={direction} data-language={language} data-cursor-theme="dark">
       <div className="footer__inner">
         <div className="footer__brand">
-          <div className="footer__identity">
+          <Link className="footer__identity" href="/" aria-label={language === "ar" ? "العودة إلى الصفحة الرئيسية" : "Back to homepage"}>
             <Image
               className="footer__logo"
               src="/images/logo/fahad-logo.png"
@@ -57,7 +58,7 @@ export function Footer() {
               <p className="footer__name">Fahad Al Modares</p>
               <p className="footer__tagline">Entrepreneur & Knowledge Communicator</p>
             </div>
-          </div>
+          </Link>
           <p className="footer__intro">{content.intro}</p>
         </div>
 
@@ -68,7 +69,7 @@ export function Footer() {
               <ul>
                 {column.links.map((link) => (
                   <li key={link.href}>
-                    <a href={footerHref(link.href)}>{link.label}</a>
+                    <Link href={link.href}>{link.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -84,7 +85,13 @@ export function Footer() {
 
         <div className="footer__social" aria-label={content.socialTitle}>
           {content.social.map((item) => (
-            <a href={item.href} key={item.label} aria-label={item.label}>
+            <a
+              href={item.href}
+              key={item.label}
+              aria-label={item.label}
+              target={isExternalHref(item.href) ? "_blank" : undefined}
+              rel={isExternalHref(item.href) ? "noopener noreferrer" : undefined}
+            >
               <SocialIcon icon={item.icon} />
             </a>
           ))}

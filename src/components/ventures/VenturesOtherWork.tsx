@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 
 const content = {
@@ -48,7 +49,7 @@ export function VenturesOtherWork() {
         </div>
         <div className="ventures-other__cta">
           <p>{page.ctaTitle}</p>
-          <a data-magnetic href="#contact">{page.cta}</a>
+          <Link data-magnetic href="/#contact">{page.cta}</Link>
         </div>
       </div>
     </section>

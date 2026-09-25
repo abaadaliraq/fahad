@@ -17,6 +17,7 @@ const content = {
       title: ["بناء الحضور", "من الاستراتيجية إلى التنفيذ"],
       paragraphs: [
         "درب التبانة شركة تعمل في التسويق، الإعلام، تطوير الأعمال والمشاريع، صناعة المحتوى، بناء وتطوير العلامات التجارية وتنظيم الفعاليات والمؤتمرات.",
+        "أسس فهد المدرس شركة درب التبانة ويتولى منصب المؤسس والرئيس التنفيذي للشركة.",
         "تبدأ الشركة من فهم المؤسسة والسوق والجمهور، وتحديد موقع العلامة التجارية، ثم تطوير الاستراتيجية وتحويلها إلى خطوات ومشاريع قابلة للتنفيذ.",
       ],
       image: chapterImages[0],
@@ -57,6 +58,7 @@ const content = {
       title: ["Building Presence", "from Strategy to Execution"],
       paragraphs: [
         "Darb Al-Tabana works across marketing, media, business and project development, content creation, brand building and event and conference organization.",
+        "Fahad Al Modares is the Founder and CEO of Darb Al-Tabana.",
         "The company begins by understanding the institution, market and audience, defining the brand position, then turning strategy into executable steps and projects.",
       ],
       image: chapterImages[0],

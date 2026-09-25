@@ -9,6 +9,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PolicyPage() {
+export default function TermsPage() {
   return <LegalContent kind="terms" />;
 }

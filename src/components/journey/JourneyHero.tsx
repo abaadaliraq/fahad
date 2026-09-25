@@ -86,6 +86,7 @@ export function JourneyHero() {
 
   return (
     <section className="journey-full-hero" dir={direction} data-language={language} data-cursor-theme="dark">
+      <h1 className="seo-only">{language === "ar" ? "المسيرة المهنية" : "Professional Journey"}</h1>
       <p className="journey-full-hero__label">{page.label}</p>
       <div className="journey-full-hero__track" aria-hidden="true">
         {panels.map((panel, index) => (
@@ -94,7 +95,7 @@ export function JourneyHero() {
             <div className="journey-full-hero__shade" />
             <div className="journey-full-hero__panel-copy">
               <span>{panel.number}</span>
-              <h1>{panel.title}</h1>
+              <h2>{panel.title}</h2>
               <p>{panel.category}</p>
             </div>
           </article>
