@@ -10,11 +10,16 @@ const content = {
     location: "Baghdad — Iraq",
     links: [
       {
-        label: "Instagram",
-        href: "https://www.instagram.com/fahad.almodares/",
+        label: "واتساب",
+        href: "https://wa.me/9647800098989",
+      },
+      {
+        label: "إنستغرام",
+        href: "https://www.instagram.com/fahad.almodares?stkn=ejM1bnJkOHFiNGMw",
       },
       {
         label: "Email",
+        href: "mailto:hello@fahadmodares.com",
       },
     ],
   },
@@ -25,11 +30,16 @@ const content = {
     location: "Baghdad — Iraq",
     links: [
       {
+        label: "WhatsApp",
+        href: "https://wa.me/9647800098989",
+      },
+      {
         label: "Instagram",
-        href: "https://www.instagram.com/fahad.almodares/",
+        href: "https://www.instagram.com/fahad.almodares?stkn=ejM1bnJkOHFiNGMw",
       },
       {
         label: "Email",
+        href: "mailto:hello@fahadmodares.com",
       },
     ],
   },
@@ -53,28 +63,12 @@ export function Contact() {
         </header>
 
         <div className="contact__links" aria-label={section.label}>
-          {section.links.map((link) => {
-            const contentNode = (
-              <>
-                <span>{link.label}</span>
-                <span className="contact__arrow" aria-hidden="true">↗</span>
-              </>
-            );
-
-            if ("href" in link) {
-              return (
-                <a className="contact__link" data-magnetic href={link.href} key={link.label} rel="noopener noreferrer" target="_blank">
-                  {contentNode}
-                </a>
-              );
-            }
-
-            return (
-              <span className="contact__link contact__link--placeholder" key={link.label} aria-disabled="true">
-                {contentNode}
-              </span>
-            );
-          })}
+          {section.links.map((link) => (
+            <a className="contact__link" data-magnetic href={link.href} key={link.label} rel="noopener noreferrer" target="_blank" aria-label={link.label}>
+              <span>{link.label}</span>
+              <span className="contact__arrow" aria-hidden="true">↗</span>
+            </a>
+          ))}
           <p className="contact__location">{section.location}</p>
         </div>
       </div>

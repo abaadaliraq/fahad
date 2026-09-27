@@ -48,7 +48,13 @@ const siteGraphJsonLd = {
           name: "Al-Shafaq Humanitarian Assistance Organization",
         },
       ],
-      sameAs: ["https://www.instagram.com/fahad.almodares/"],
+      sameAs: [
+        "https://www.instagram.com/fahad.almodares?stkn=ejM1bnJkOHFiNGMw",
+        "https://www.instagram.com/fahad.almodaress?stkn=MXV5dDRocDA1bzhscg==",
+        "https://www.facebook.com/share/1Dq1zowGnb/?mibextid=wwXIfr",
+        "https://www.facebook.com/share/14qLyK4HVDX/?mibextid=wwXIfr",
+        "https://x.com/Almodaresfahad",
+      ],
     },
     {
       "@type": "Organization",
@@ -59,7 +65,7 @@ const siteGraphJsonLd = {
       founder: {
         "@id": `${siteUrl}/#fahad`,
       },
-      sameAs: ["https://www.instagram.com/darb.al.tabana/"],
+      sameAs: ["https://www.instagram.com/darb.al.tabana?stkn=MWw1cjJycnNmZ25r"],
     },
   ],
 };

@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 
 const journeyImages = [
-  "/images/journey/details/banking.jpg",
+  "/images/journey/banking.jpg",
   "/images/journey/details/marketing.jpg",
-  "/images/journey/details/entrepreneurship.jpg",
+  "/images/journey/journey-02.jpg",
   "/images/journey/details/impact.jpg",
 ] as const;
 
@@ -132,7 +132,13 @@ export function CareerChapters() {
       {chapters.map((chapter) => (
         <article className="career-chapter" dir={direction} data-language={language} data-cursor-theme={chapter.tone === "cream" ? "light" : "dark"} data-tone={chapter.tone} key={chapter.number}>
           <div className="career-chapter__media" aria-hidden="true">
-            <Image src={chapter.image} alt="" fill sizes="(max-width: 900px) 100vw, 50vw" />
+            <Image
+              src={chapter.image}
+              alt=""
+              fill
+              sizes="(max-width: 900px) 100vw, 50vw"
+              style={{ objectPosition: chapter.number === "01" || chapter.number === "03" ? "center center" : undefined }}
+            />
           </div>
           <div className="career-chapter__body">
             <div className="career-chapter__meta">

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Topbar } from "@/components/layout/Topbar";
 import { TypewriterText } from "@/components/motion/TypewriterText";
@@ -13,7 +14,7 @@ export function Hero() {
   const [typingDone, setTypingDone] = useState(false);
   const headlineLines = useMemo(() => {
     if (language === "ar") {
-      return ["رائد أعمال", "وناقل للمعرفة والخبرة"];
+      return ["رائد أعمال", "وناقل للمعرفة"];
     }
 
     return [...content.headline];
@@ -69,12 +70,12 @@ export function Hero() {
             </span>
           </h1>
           <p className="hero__supporting" data-visible={typingDone}>{content.supporting}</p>
-          <a className="hero__cta" data-magnetic data-visible={typingDone} href="#journey">
+          <Link className="hero__cta" data-magnetic data-visible={typingDone} href="/#journey">
             <span>{content.cta}</span>
             <span className="hero__cta-arrow" aria-hidden="true">
               {content.ctaArrow}
             </span>
-          </a>
+          </Link>
           <span className="hero__location" aria-hidden="true">
             BAGHDAD — IRAQ
           </span>

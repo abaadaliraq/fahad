@@ -61,7 +61,7 @@ export function DarbAlTabanaPage() {
             ))}
           </div>
           <div className="darb-page__links">
-            <a href="https://www.instagram.com/darb.al.tabana/" target="_blank" rel="noopener noreferrer">{page.instagram}</a>
+            <a href="https://www.instagram.com/darb.al.tabana?stkn=MWw1cjJycnNmZ25r" target="_blank" rel="noopener noreferrer">{page.instagram}</a>
             <Link href="/">{page.home}</Link>
           </div>
         </section>

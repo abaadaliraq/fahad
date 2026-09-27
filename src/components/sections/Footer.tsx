@@ -6,10 +6,18 @@ import { useLanguage } from "@/components/providers/LanguageProvider";
 import { translations } from "@/lib/i18n";
 
 type SocialIconProps = {
-  icon: "instagram" | "facebook" | "linkedin";
+  icon: "instagram" | "facebook" | "x" | "email";
 };
 
 function SocialIcon({ icon }: SocialIconProps) {
+  if (icon === "email") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M3.5 5h17A1.5 1.5 0 0 1 22 6.5v11A1.5 1.5 0 0 1 20.5 19h-17A1.5 1.5 0 0 1 2 17.5v-11A1.5 1.5 0 0 1 3.5 5Zm.7 2 7.8 5.45L19.8 7H4.2Zm15.8 1.8-7.42 5.18a1 1 0 0 1-1.16 0L4 8.8V17h16V8.8Z" />
+      </svg>
+    );
+  }
+
   if (icon === "instagram") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -28,7 +36,7 @@ function SocialIcon({ icon }: SocialIconProps) {
 
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.34 8h4.31v14H.34V8Zm7.09 0h4.13v1.91h.06c.58-1.1 1.99-2.26 4.1-2.26 4.38 0 5.19 2.9 5.19 6.67V22h-4.31v-6.8c0-1.62-.03-3.71-2.25-3.71-2.26 0-2.6 1.77-2.6 3.59V22H7.43V8Z" />
+      <path d="M18.9 2h3.2l-7 8 8.2 12h-6.4l-5-7.2L6.2 22H3l7.5-8.6L2.6 2h6.6l4.5 6.5L18.9 2Zm-1.1 17.9h1.8L8.2 4H6.3l11.5 15.9Z" />
     </svg>
   );
 }
@@ -77,12 +85,6 @@ export function Footer() {
           ))}
         </nav>
 
-        <div className="footer__contact">
-          <h2 className="footer__column-title">{content.contactTitle}</h2>
-          <a href={`tel:${content.phoneHref}`}>{content.phone}</a>
-          <a href={`mailto:${content.email}`}>{content.email}</a>
-        </div>
-
         <div className="footer__social" aria-label={content.socialTitle}>
           {content.social.map((item) => (
             <a
@@ -96,6 +98,36 @@ export function Footer() {
             </a>
           ))}
         </div>
+
+        <div className="footer__contact">
+          <h2 className="footer__column-title">{content.contactTitle}</h2>
+          <div className="footer__contact-groups">
+            {content.contactGroups.map((group) => (
+              <div className="footer__contact-group" key={group.title}>
+                <h3>{group.title}</h3>
+                <ul>
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      {"href" in link ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${group.title} - ${link.label}`}
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <span>{link.label}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
 
         <div className="footer__bottom">
           <span>{content.copyright}</span>
@@ -118,4 +150,3 @@ export function Footer() {
     </footer>
   );
 }
-

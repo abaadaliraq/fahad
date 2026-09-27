@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: "/journey",
     images: [
       {
-        url: "/images/journey/details/banking.jpg",
+        url: "/images/journey/banking.jpg",
         width: 1200,
         height: 630,
         alt: "المسيرة المهنية لفهد المدرس",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "المسيرة المهنية | فهد المدرس",
     description:
       "تعرف على المسيرة المهنية لفهد المدرس، من القطاع المصرفي والعلاقات العامة والتسويق إلى ريادة الأعمال وتطوير المشاريع والشراكات.",
-    images: ["/images/journey/details/banking.jpg"],
+    images: ["/images/journey/banking.jpg"],
   },
 };
 

@@ -20,25 +20,23 @@ function revealHeading(scope: ParentNode, selector: string, direction: "rtl" | "
   const headings = gsap.utils.toArray<HTMLElement>(selector, scope);
 
   headings.forEach((heading) => {
-    const lines = Array.from(heading.children).filter((child): child is HTMLElement => child instanceof HTMLElement && child.tagName.toLowerCase() === "span");
-    if (!lines.length) {
+    if (!heading.isConnected) {
       return;
     }
 
     if (reduce) {
-      gsap.set(lines, { clearProps: "all" });
+      gsap.set(heading, { clearProps: "all" });
       return;
     }
 
-    gsap.fromTo(lines, {
-      yPercent: 110,
-      opacity: 0.96,
+    gsap.fromTo(heading, {
+      autoAlpha: 0,
+      y: 24,
     }, {
-      yPercent: 0,
-      opacity: 1,
-      duration: 0.9,
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.78,
       ease: "power4.out",
-      stagger: 0.12,
       scrollTrigger: {
         trigger: heading,
         start: "top 82%",
@@ -59,7 +57,7 @@ function revealHeading(scope: ParentNode, selector: string, direction: "rtl" | "
   ].join(","), scope);
 
   labels.forEach((label) => {
-    if (reduce) {
+    if (reduce || !label.isConnected) {
       return;
     }
 
@@ -84,6 +82,10 @@ function revealBlock(scope: ParentNode, selector: string, y = 28) {
   const items = gsap.utils.toArray<HTMLElement>(selector, scope);
 
   items.forEach((item) => {
+    if (!item.isConnected) {
+      return;
+    }
+
     gsap.fromTo(item, { autoAlpha: 0, y }, {
       autoAlpha: 1,
       y: 0,
@@ -135,6 +137,10 @@ function revealPanel(
   const panels = gsap.utils.toArray<HTMLElement>(selector, scope);
 
   panels.forEach((panel, index) => {
+    if (!panel.isConnected) {
+      return;
+    }
+
     const cover = ensureCover(panel);
     const media = panel.querySelector<HTMLElement>("img, .journey-card__image, .current-roles__image");
     const delay = Number(panel.dataset.revealDelay ?? options.delay ?? index * 0.04);
@@ -275,13 +281,18 @@ function setupInternalHero(scope: ParentNode, reduce: boolean) {
       if (track) track.style.animationPlayState = "running";
     });
 
-    gsap.fromTo(copy, { autoAlpha: 0, y: 18 }, {
-      autoAlpha: 1,
-      y: 0,
-      duration: 0.55,
-      ease: "power3.out",
-      stagger: 0.04,
-      delay: 0.45,
+    copy.forEach((item, index) => {
+      if (!item.isConnected) {
+        return;
+      }
+
+      gsap.fromTo(item, { autoAlpha: 0, y: 18 }, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.55,
+        ease: "power3.out",
+        delay: 0.45 + index * 0.04,
+      });
     });
   });
 }
@@ -345,34 +356,51 @@ function setupCountUp(scope: ParentNode, reduce: boolean) {
 
 function setupFooterMotion(root: HTMLElement, reduce: boolean) {
   const footer = root.querySelector<HTMLElement>(".footer");
-  if (!footer || reduce) {
+  if (!footer || reduce || !footer.isConnected) {
     return;
   }
 
-  gsap.fromTo(footer.querySelector(".footer__logo"), { autoAlpha: 0, scale: 0.92 }, {
-    autoAlpha: 1,
-    scale: 1,
-    duration: 0.62,
-    ease: "power3.out",
-    scrollTrigger: { trigger: footer, start: "top 88%", once: true },
+  const logo = footer.querySelector<HTMLElement>(".footer__logo");
+  if (logo) {
+    gsap.fromTo(logo, { autoAlpha: 0, scale: 0.92 }, {
+      autoAlpha: 1,
+      scale: 1,
+      duration: 0.62,
+      ease: "power3.out",
+      scrollTrigger: { trigger: footer, start: "top 88%", once: true },
+    });
+  }
+
+  const identityItems = gsap.utils.toArray<HTMLElement>(".footer__identity-copy > *, .footer__intro", footer);
+  identityItems.forEach((item, index) => {
+    if (!item.isConnected) {
+      return;
+    }
+
+    gsap.fromTo(item, { autoAlpha: 0, y: 16 }, {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.62,
+      ease: "power3.out",
+      delay: index * 0.06,
+      scrollTrigger: { trigger: footer, start: "top 88%", once: true },
+    });
   });
 
-  gsap.fromTo(footer.querySelectorAll(".footer__identity-copy > *, .footer__intro"), { autoAlpha: 0, y: 16 }, {
-    autoAlpha: 1,
-    y: 0,
-    duration: 0.62,
-    ease: "power3.out",
-    stagger: 0.06,
-    scrollTrigger: { trigger: footer, start: "top 88%", once: true },
-  });
+  const footerLinks = gsap.utils.toArray<HTMLElement>(".footer__column li, .footer__contact a, .footer__social a", footer);
+  footerLinks.forEach((item, index) => {
+    if (!item.isConnected) {
+      return;
+    }
 
-  gsap.fromTo(footer.querySelectorAll(".footer__column li, .footer__contact a, .footer__social a"), { autoAlpha: 0, y: 12 }, {
-    autoAlpha: 1,
-    y: 0,
-    duration: 0.48,
-    ease: "power3.out",
-    stagger: 0.035,
-    scrollTrigger: { trigger: footer, start: "top 86%", once: true },
+    gsap.fromTo(item, { autoAlpha: 0, y: 12 }, {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.48,
+      ease: "power3.out",
+      delay: index * 0.035,
+      scrollTrigger: { trigger: footer, start: "top 86%", once: true },
+    });
   });
 }
 
@@ -427,17 +455,23 @@ function setupSiteMotion(root: HTMLElement, pathname: string) {
     const journeyCards = gsap.utils.toArray<HTMLElement>(".journey-card", root);
     const journeyCardsTrigger = root.querySelector<HTMLElement>(".journey__cards");
     if (journeyCards.length && journeyCardsTrigger) {
-      gsap.fromTo(journeyCards, { autoAlpha: 0, y: 44 }, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.12,
-        scrollTrigger: {
-          trigger: journeyCardsTrigger,
-          start: "top 82%",
-          once: true,
-        },
+      journeyCards.forEach((card, index) => {
+        if (!card.isConnected) {
+          return;
+        }
+
+        gsap.fromTo(card, { autoAlpha: 0, y: 44 }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: index * 0.12,
+          scrollTrigger: {
+            trigger: journeyCardsTrigger,
+            start: "top 82%",
+            once: true,
+          },
+        });
       });
     }
 
@@ -454,19 +488,19 @@ function setupSiteMotion(root: HTMLElement, pathname: string) {
     revealPanel(root, ".career-chapter__media", direction === "rtl" ? "right" : "left", { cover: "cream" });
 
     const visionPillars = gsap.utils.toArray<HTMLElement>(".vision-experience__pillar", root);
-    const visionPillarsTrigger = root.querySelector<HTMLElement>(".vision-experience__pillars");
-    if (visionPillars.length && visionPillarsTrigger) {
-      gsap.fromTo(visionPillars, { autoAlpha: 0, y: 28 }, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.18,
-        scrollTrigger: {
-          trigger: visionPillarsTrigger,
-          start: "top 82%",
-          once: true,
-        },
+    if (visionPillars.length) {
+      visionPillars.forEach((pillar, index) => {
+        if (!pillar.isConnected) {
+          return;
+        }
+
+        gsap.fromTo(pillar, { autoAlpha: 0, y: 28 }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: index * 0.18,
+        });
       });
     }
 
